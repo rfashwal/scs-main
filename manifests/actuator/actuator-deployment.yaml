@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: actuator
+  name: actuator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: actuator
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        service: actuator
+    spec:
+      containers:
+      - env:
+        - name: ACTUATOR_TOPIC
+          value: actuator
+        - name: EUREKA_SERVICE
+          value: http://discovery:8761
+        - name: HTTP_PORT
+          value: "8300"
+        - name: MQ_HOST
+          value: rabbit:5672
+        - name: READINGS_ROUTING_KEY
+          value: readings
+        - name: SERVICE_NAME
+          value: actuator
+        image: rfashwal/scs-actuator:latest
+        imagePullPolicy: ""
+        name: actuator
+        ports:
+        - containerPort: 8200
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

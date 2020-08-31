@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: rooms
+  name: rooms
+spec:
+  ports:
+  - name: "8200"
+    port: 8200
+    targetPort: 8200
+  selector:
+    service: rooms
+status:
+  loadBalancer: {}

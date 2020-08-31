@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: dispatcher
+  name: dispatcher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: dispatcher
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        service: dispatcher
+    spec:
+      containers:
+      - env:
+        - name: EUREKA_SERVICE
+          value: http://discovery:8761
+        - name: HTTP_PORT
+          value: "8100"
+        - name: MQ_HOST
+          value: rabbit:5672
+        - name: READINGS_ROUTING_KEY
+          value: readings
+        - name: SERVICE_NAME
+          value: dispatcher
+        - name: TEMPERATURE_TOPIC
+          value: temperature
+        image: rfashwal/scs-dispatcher:latest
+        imagePullPolicy: ""
+        name: dispatcher
+        ports:
+        - containerPort: 8100
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

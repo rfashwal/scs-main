@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: discovery
+  name: discovery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: discovery
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        service: discovery
+    spec:
+      containers:
+      - image: rfashwal/discovery:latest
+        imagePullPolicy: ""
+        name: discovery
+        ports:
+        - containerPort: 8761
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

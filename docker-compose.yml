@@ -1,0 +1,63 @@
+version: "3"
+services:
+  rabbit:
+    restart: always
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest1"
+      RABBITMQ_DEFAULT_PASS: "guest1"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  discovery:
+    restart: always
+    image: rfashwal/discovery:latest
+    ports:
+      - "8761:8761"
+  gateway:
+    restart: always
+    image: rfashwal/gateway:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - EUREKA_SERVICE=http://discovery:8761/eureka
+    expose:
+      - "8000"
+  dispatcher:
+    image: rfashwal/scs-dispatcher:latest
+    restart: always
+    environment:
+      - HTTP_PORT=8100
+      - SERVICE_NAME=dispatcher
+      - EUREKA_SERVICE=http://discovery:8761
+      - MQ_HOST=rabbit:5672
+      - READINGS_ROUTING_KEY=readings
+      - TEMPERATURE_TOPIC=temperature
+    expose:
+      - "8100"
+  rooms:
+    image: rfashwal/scs-rooms:latest
+    restart: always
+    environment:
+      - HTTP_PORT=8200
+      - SERVICE_NAME=rooms
+      - EUREKA_SERVICE=http://discovery:8761
+      - MQ_HOST=rabbit:5672
+      - READINGS_ROUTING_KEY=readings
+      - TEMPERATURE_TOPIC=temperature
+      - ACTUATOR_TOPIC=actuator
+      - DB_PATH=rooms.db
+    expose:
+      - "8200"
+  actuator:
+    image: rfashwal/scs-actuator:latest
+    restart: always
+    environment:
+      - HTTP_PORT=8300
+      - SERVICE_NAME=actuator
+      - EUREKA_SERVICE=http://discovery:8761
+      - MQ_HOST=rabbit:5672
+      - READINGS_ROUTING_KEY=readings
+      - ACTUATOR_TOPIC=actuator
+    expose:
+      - "8200"

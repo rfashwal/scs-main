@@ -1,0 +1,8 @@
+server.port: 8000
+zuul.prefix: /api
+spring:
+  application:
+    name: gateway
+  profiles:
+    active:
+      default

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: rooms
+  name: rooms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: rooms
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        service: rooms
+    spec:
+      containers:
+      - env:
+        - name: ACTUATOR_TOPIC
+          value: actuator
+        - name: DB_PATH
+          value: rooms.db
+        - name: EUREKA_SERVICE
+          value: http://discovery:8761
+        - name: HTTP_PORT
+          value: "8200"
+        - name: MQ_HOST
+          value: rabbit:5672
+        - name: READINGS_ROUTING_KEY
+          value: readings
+        - name: SERVICE_NAME
+          value: rooms
+        - name: TEMPERATURE_TOPIC
+          value: temperature
+        image: rfashwal/scs-rooms:latest
+        imagePullPolicy: ""
+        name: rooms
+        ports:
+        - containerPort: 8200
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
