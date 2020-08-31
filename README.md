@@ -1,22 +1,22 @@
 # Sensor Control System - Microservice cloud native app
 SCS is a system to control sensor readings and manage actuators to maintain, monitor and manage home surroundings sing IoT device
 ### Implemntation
-![Architecture Overview](https://github.com/rfashwal/scs-main/blob/master/_resourcses/sensor-control-system-arch.png)
+![Architecture Overview](https://github.com/rfashwal/scs-main/blob/master/_resources/sensor-control-system-arch.png)
 #### Services
 ##### rabbitMQ
 RabbitMQ is used for event sourcing to publish/consume message queues
-![MQ](https://github.com/rfashwal/scs-main/blob/master/_resourcses/rabbitmq.png)
+![MQ](https://github.com/rfashwal/scs-main/blob/master/_resources/rabbitmq.png)
 ##### discovery
 using Eureka, netflix open source dscovery service, we register every service within the eureka manager.
-![Eureka](https://github.com/rfashwal/scs-main/blob/master/_resourcses/eureka.png)
+![Eureka](https://github.com/rfashwal/scs-main/blob/master/_resources/eureka.png)
 ##### gateway
 microservice architecture requires a gateway to manage the access layer among all services, what is better than Zuul proxy to align with Eureka.
 of course there are many alternatives found and can be used like consul, istio, etc...
-![Zuul](https://github.com/rfashwal/scs-main/blob/master/_resourcses/gateway.png)
+![Zuul](https://github.com/rfashwal/scs-main/blob/master/_resources/gateway.png)
 ##### Dispatcher
 A microservice that is used by sensor to post its readings, below is the setup used to post the readings:
-![sensor setup](https://github.com/rfashwal/scs-main/blob/master/_resourcses/temp-sensor-setup.jpg)
-![Arduino Board Sample Code](https://github.com/rfashwal/scs-main/blob/master/_resourcses/temperature.ino)
+![sensor setup](https://github.com/rfashwal/scs-main/blob/master/_resources/temp-sensor-setup.jpg)
+![Arduino Board Sample Code](https://github.com/rfashwal/scs-main/blob/master/_resources/temperature.ino)
 
 Hardware
 - Arduino WiFi module type 1 or 2 both works fine
