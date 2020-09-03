@@ -9,6 +9,11 @@ RabbitMQ is used for event sourcing to publish/consume message queues
 ##### discovery
 using Eureka, netflix open source dscovery service, we register every service within the eureka manager.
 ![Eureka](https://github.com/rfashwal/scs-main/blob/master/_resources/eureka.png)
+
+**NOTE: the image built might case problems when used on different linux distributions or operatibg systems, to build a new image go to discovery and issue this command:**
+```
+mvn clean package docker:build -DskipTests
+```  
 ##### gateway
 microservice architecture requires a gateway to manage the access layer among all services, what is better than Zuul proxy to align with Eureka.
 of course there are many alternatives found and can be used like consul, istio, etc...
