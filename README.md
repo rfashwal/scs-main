@@ -76,3 +76,6 @@ Kubernets manifests are created for deployment. I run them on minikube. Files ar
 minikube start
 kubectl create -f manifests/room/deployment.yaml # for demo
 ```
+#### Postman
+Use the postman collection file included to test the apis (create room, dispatch sensor readings)
+https://github.com/rfashwal/scs-main/blob/master/postman-api-sample.json
